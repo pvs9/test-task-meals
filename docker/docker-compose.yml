@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  app:
+    container_name: ${COMPOSE_PROJECT_NAME}_app
+    build:
+      context: ../
+      dockerfile: ./docker/php/Dockerfile
+    expose:
+      - "9000"
+    volumes:
+      - "../:/home/app/code"
+    environment:
+      XDEBUG_CONFIG: "client_host=${XDEBUG_CONFIG_REMOTE_HOST:-host.docker.internal}"
+      PHP_IDE_CONFIG: "serverName=${PHP_IDE_CONFIG_SERVER_NAME}"
+      XDEBUG_MODE: "debug"
+      XDEBUG_SESSION: "PHPSTORM"
